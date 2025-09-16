@@ -14,7 +14,6 @@ import {
 import ProfileDropdown from './ProfileDropdown';
 
 export default function SideBar() {
-
   const links = [
     { to: "/dashboard", label: "الرئيسية", icon: home },
     { to: "/dashboard/childrenManagement", label: "إدارة الأطفال", icon: boy },
