@@ -5,15 +5,30 @@ import ForgetPassword from "./auth/ForgetPassword";
 import VerifyAccount from "./auth/VerifyAccount";
 import ResetPassword from "./auth/ResetPassword";
 import SuccessMessage from "./auth/SuccessMessage";
+import MainLayout from "./layout/MainLayout";
+import ChildrenManagement from "./ChildrenManagement/ChildrenManagement";
+import ChildProfile from "./ChildProfile/ChildProfile";
+import SettingsPage from "./SettingsPage/SettingsPage";
+import UploadingDraw from "./UploadingDraw/UploadingDraw";
+import Dashboard from "./Dashboard/Dashboard";
 
 function App() {
   return (
     <Routes>
+       {/* Authentication Routes */}
       <Route path="/" element={<SignIn />} />
       <Route path="/forget-password" element={<ForgetPassword />} />
       <Route path="/verify-account" element={<VerifyAccount />} />
       <Route path="/reset-password" element={<ResetPassword />} />
       <Route path="/success-message" element={<SuccessMessage />} />
+      {/* Dashboard Routes */}
+      <Route path="/dashboard" element={<MainLayout />}>
+        <Route index element={<Dashboard />} />
+        <Route path="childrenManagement" element={<ChildrenManagement />} />
+        <Route path="profile" element={<ChildProfile />} />
+        <Route path="uploadingDraw" element={<UploadingDraw />} />
+        <Route path="settings" element={<SettingsPage />} />
+      </Route>
     </Routes>
   );
 }
