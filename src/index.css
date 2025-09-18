@@ -1,1 +1,27 @@
 @import "tailwindcss";
+
+:root {
+  --btn-gradient: radial-gradient(
+    96.2% 79.04% at 50% 130.56%,
+    #47daff 0%,
+    #0067f7 100%
+  );
+}
+
+body {
+  font-family: "IBM Plex Sans Arabic", sans-serif;
+}
+
+.btn-gradient {
+  background: var(--btn-gradient);
+}
+
+.custom-shadow {
+  box-shadow: 0px 0px 0px 2px #20346014, 0px 1px 2px 0px #2034601f,
+    inset 0px 0px 0px 8px #ffffff;
+}
+
+.x-container {
+  width: 1076px;
+  margin: 0 auto;
+}
