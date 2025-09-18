@@ -13,7 +13,7 @@ export default function Header() {
         />
         {/* اسم المشروع */}
         <span className="text-xl font-bold text-gray-800">
-          GazaKidMindCanvas
+          GazaKidMind
         </span>
       </div>
     </header>
