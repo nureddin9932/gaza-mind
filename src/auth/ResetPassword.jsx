@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 import { FiLock } from "react-icons/fi";
-import { useNavigate } from "react-router-dom";
+import fetchResetPassword from "./api/fetchResetPassword";
+import validatePasswords from "./validator/validatePassword";
 
 export default function ResetPassword() {
+
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
-  const navigate = useNavigate();
+  const [password, setPassword] = useState("")
+  const [confirmPassword, setConfirmPassword] = useState("")
 
   // الانتقال إلى صفحة SuccessMessage
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/success-message");
+    validatePasswords(password, confirmPassword) ? fetchResetPassword({ password }) : alert("Passwords do not match or are empty.")
   };
 
   return (
@@ -36,6 +39,7 @@ export default function ResetPassword() {
               type={showPassword ? "text" : "password"}
               placeholder="كلمة المرور الجديدة"
               className="w-full p-3 pr-10 text-right border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              onChange={(e) => setPassword(e.target.value)}
             />
             <button
               type="button"
@@ -53,6 +57,7 @@ export default function ResetPassword() {
               type={showConfirm ? "text" : "password"}
               placeholder="تأكيد كلمة المرور"
               className="w-full p-3 pr-10 text-right border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
+              onChange={(e) => setConfirmPassword(e.target.value)}
             />
             <button
               type="button"
