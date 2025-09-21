@@ -1,12 +1,12 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-
+import React, { useState } from "react";
+import fetchForgetPasswordAPI from "./api/fetchForgetPasswordAPI"
+import validateEmail from "./validator/validateEmail";
 export default function ForgetPassword() {
-  const navigate = useNavigate();
-
+  const [ email, setEmail ] = useState("")
   const handleSubmit = (e) => {
     e.preventDefault();
-    navigate("/verify-account");
+    validateEmail(email) ? fetchForgetPasswordAPI({email}) : alert("invalid email") 
+    
   };
 
   return (
@@ -28,6 +28,7 @@ export default function ForgetPassword() {
             type="email"
             placeholder="البريد الإلكتروني"
             className="w-full p-3 text-right border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white"
+            onChange={(e) => setEmail(e.target.value)}
           />
           <button
             type="submit"

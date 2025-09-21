@@ -1,10 +1,16 @@
 import React from "react";
+import { useState } from "react";
 import { FiMail, FiLock } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import loginImg from "../assets/login.png";
 import Header from "../components/Header"; // ✅
+import loginFetchAPI  from "./api/fetchLoginApi";
+import validateEmail from "./validator/validateEmail";
 
 export default function SignIn() {
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [remember, setRemember] = useState(false);
   return (
     <div className="flex flex-col min-h-screen font-[Cairo] relative">
       {/* ✅ الهيدر */}
@@ -51,13 +57,18 @@ export default function SignIn() {
               مرحباً بك، من سجل الدخول للمتابعة
             </p>
 
-            <form className="space-y-3">
+            <form className="space-y-3" onSubmit={(e) => {
+              e.preventDefault();
+              validateEmail(email) ? loginFetchAPI({email, password, remember}) : alert("invalid email") 
+              
+            }}>
               <div className="relative">
                 <FiMail className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400" />
                 <input
                   type="email"
                   placeholder="البريد الإلكتروني"
                   className="w-full p-3 pr-10 text-right border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white"
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
 
@@ -67,12 +78,13 @@ export default function SignIn() {
                   type="password"
                   placeholder="كلمة المرور"
                   className="w-full p-3 pr-10 text-right border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400 bg-white"
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
 
               <div className="flex justify-between items-center text-sm">
                 <label className="flex items-center gap-1">
-                  <input type="checkbox" className="h-4 w-4 border-gray-300 rounded" />
+                  <input type="checkbox" className="h-4 w-4 border-gray-300 rounded" onChange={(e) => setRemember(e.target.checked)}/>
                   <span>تذكرني</span>
                 </label>
                 <Link to="/forget-password" className="text-blue-600 hover:underline">

@@ -12,6 +12,7 @@ import SettingsPage from "./SettingsPage/SettingsPage";
 import UploadingDraw from "./UploadingDraw/UploadingDraw";
 import Dashboard from "./Dashboard/Dashboard";
 import DrawingsRecords from "./ChildProfile/DrawingsRecords";
+import GridView from "./GridView/GridView";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
         <Route path="profile" element={<ChildProfile />} />
         <Route path="uploadingDraw" element={<UploadingDraw />} />
         <Route path="settings" element={<SettingsPage />} />
+        <Route path="gridview" element={<GridView />} />
       </Route>
 
       {/* Redirect / to /dashboard */}

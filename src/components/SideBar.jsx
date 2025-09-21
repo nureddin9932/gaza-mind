@@ -18,6 +18,7 @@ export default function SideBar() {
     { to: "/dashboard", label: "الرئيسية", icon: home },
     { to: "/dashboard/childrenManagement", label: "إدارة الأطفال", icon: boy },
     { to: "", label: "التوصيات المقترحة", icon: recommend },
+    
   ];
   const addLinks =
   [

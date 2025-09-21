@@ -10,7 +10,7 @@ export default function SettingsPage() {
   const [avgChildren, setAvgChildren] = useState("");
 
   return (
-    <div className="w-full min-h-full bg-white rounded-lg p-6">
+    <div className="w-full min-h-full bg-white border  border-[#E4E7EC] rounded-lg">
       <main className="flex-1 p-10" dir="rtl">
         {/* العنوان */}
         <h1 className="mb-8 text-2xl font-semibold text-gray-900">الإعدادات</h1>
