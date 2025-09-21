@@ -12,7 +12,9 @@ import SettingsPage from "./SettingsPage/SettingsPage";
 import UploadingDraw from "./UploadingDraw/UploadingDraw";
 import Dashboard from "./Dashboard/Dashboard";
 import DrawingsRecords from "./ChildProfile/DrawingsRecords";
+
 import FilterView from "./ChildrenManagement/FilterView";
+
 import Main from "./ChildrenManagement/Main";
 
 

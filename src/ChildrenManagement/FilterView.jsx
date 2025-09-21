@@ -1,9 +1,9 @@
+// src/components/FilterView.jsx
 import React, { useState } from "react";
 import { IoMdRadioButtonOn } from "react-icons/io";
 import { HiOutlineDotsHorizontal } from "react-icons/hi";
 
 function ChildCard({ name, age, mentalState, riskLevel, image }) {
-  
   const getRiskLevelStyle = (level) => {
     if (level === "متوسط") {
       return "inline-flex items-center justify-center font-semibold text-xs text-center text-[#9A3412] leading-[20px] font-['IBM_Plex_Sans_Arabic'] gap-[3px] rounded-full px-[24px] h-[20px] bg-[#FFEDD5] border border-[#FED7AA]";
@@ -47,10 +47,25 @@ function ChildCard({ name, age, mentalState, riskLevel, image }) {
   );
 }
 
-function FilterView({ viewMode }) {
-  
+  function FilterView({ viewMode, filters, childrenData }) {
   const [openMenuId, setOpenMenuId] = useState(null);
   const [bulkMenuOpen, setBulkMenuOpen] = useState(false);
+  const [selectedIds, setSelectedIds] = useState([]);
+  const children = childrenData; // ✅ use prop from Main
+
+  // ✅ Apply filters here
+  const filteredChildren = children.filter((child) => {
+    const matchesSearch =
+      !filters?.search ||
+      child.name.toLowerCase().includes(filters.search.toLowerCase());
+    const matchesAge = !filters?.age || String(child.age) === String(filters.age);
+    const matchesMental =
+      !filters?.mentalState || child.mentalState === filters.mentalState;
+    const matchesRisk =
+      !filters?.riskLevel || child.riskLevel === filters.riskLevel;
+
+    return matchesSearch && matchesAge && matchesMental && matchesRisk;
+  });
 
   const toggleRowMenu = (id) => {
     setOpenMenuId((prev) => (prev === id ? null : id));
@@ -78,11 +93,9 @@ function FilterView({ viewMode }) {
     console.log("Delete selected rows:", selectedIds);
   };
 
-  const [selectedIds, setSelectedIds] = useState([]);
-
   const handleSelectAll = (e) => {
     if (e.target.checked) {
-      setSelectedIds(children.map((child) => child.id));
+      setSelectedIds(filteredChildren.map((child) => child.id));
     } else {
       setSelectedIds([]);
     }
@@ -93,54 +106,12 @@ function FilterView({ viewMode }) {
       prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]
     );
   };
-  const children = [
-    {
-      id: 1,
-      name: "علياء",
-      age: 8,
-      mentalState: "قلق",
-      riskLevel: "منخفض",
-      gender: "أنثى",
-      lastAnalysis: "01-03-2025",
-      drawings: 4,
-    },
-    {
-      id: 2,
-      name: "حسن",
-      age: 10,
-      mentalState: "ضغط نفسي",
-      riskLevel: "منخفض جدا",
-      gender: "ذكر",
-      lastAnalysis: "15-04-2025",
-      drawings: 5,
-    },
-    {
-      id: 3,
-      name: "ليلى",
-      age: 9,
-      mentalState: "اجهاد ",
-      riskLevel: "متوسط",
-      gender: "انثى",
-      lastAnalysis: "15-04-2025",
-      drawings: 5,
-    },
-    {
-      id: 4,
-      name: "ندى",
-      age: 9,
-      mentalState: "اجهاد ",
-      riskLevel: "مرتفع",
-      gender: "انثى",
-      lastAnalysis: "15-04-2025",
-      drawings: 5,
-    },
-  ];
 
   return (
     <div className=" bg-[#F9FAFB] rounded-[16px] p-6 flex flex-col gap-6">
       {viewMode === "grid" ? (
         <div className="p-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-          {children.map((child) => (
+          {filteredChildren.map((child) => (
             <ChildCard
               key={child.id}
               name={child.name}
@@ -161,8 +132,7 @@ function FilterView({ viewMode }) {
                     <input
                       type="checkbox"
                       onChange={handleSelectAll}
-                      className="w-[14px] h-[14px] opacity-100 rounded-[3px] bg-[#FCFCFD] 
-    shadow-[0_0_0_1px_#20346014,0_1px_2px_0px_#2034601F]"
+                      className="w-[14px] h-[14px]"
                     />
                   </th>
 
@@ -218,7 +188,7 @@ function FilterView({ viewMode }) {
           <div className="bg-white rounded-lg shadow-sm">
             <table className="w-full table-fixed text-sm font-['IBM_Plex_Sans_Arabic']">
               <tbody>
-                {children.map((child) => (
+                {filteredChildren.map((child) => (
                   <tr
                     key={child.id}
                     className={`hover:bg-gray-50 ${
@@ -230,70 +200,37 @@ function FilterView({ viewMode }) {
                         type="checkbox"
                         checked={selectedIds.includes(child.id)}
                         onChange={() => handleSelectRow(child.id)}
-                        className="w-[14px] h-[14px] opacity-100 rounded-[3px] bg-[#FCFCFD] border 
-    shadow-[0_0_0_1px_#20346014,0_1px_2px_0px_#2034601F]  "
+                        className="w-[14px] h-[14px]"
                       />
                     </td>
 
-                    <td className="p-4 text-right font-medium text-sm leading-[20px] tracking-[0] text-[#667085] font-['IBM_Plex_Sans_Arabic']">
+                    <td className="p-4 text-right font-medium text-sm text-[#667085]">
                       <div className="flex items-center gap-2 ">
-                        {/* الصورة */}
                         <img
                           src={child.image || "/src/assets/image.png"}
                           alt={child.name}
                           className="w-[24px] h-[24px] rounded-[4px] border border-[#18181B1A] object-cover"
                         />
-                        {/* الاسم */}
                         <span>{child.name}</span>
                       </div>
                     </td>
 
-                    <td className="p-4 text-right font-medium text-sm leading-[20px] tracking-[0] font-['IBM_Plex_Sans_Arabic'] text-[#667085]">
+                    <td className="p-4 text-right font-medium text-sm text-[#667085]">
                       {child.age}
                     </td>
-                    <td className="p-4 flex items-center gap-2 text-right font-medium text-sm leading-[20px] tracking-[0] text-[#101828] font-['IBM_Plex_Sans_Arabic']">
+                    <td className="p-4 flex items-center gap-2 text-right font-medium text-sm text-[#101828]">
                       <IoMdRadioButtonOn className="text-[#D92D20]" />
                       {child.mentalState}
                     </td>
-                    <td className="text-right">
-                      {child.riskLevel === "متوسط" ? (
-                        <span
-                          className="inline-flex items-center justify-center font-semibold text-sm text-center text-[#9A3412] leading-[20px] tracking-[0] font-['IBM_Plex_Sans_Arabic'] 
-      gap-[3px] opacity-100 rounded-full px-[24px] h-[20px] 
-      bg-[#FFEDD5] border border-[#FED7AA]"
-                        >
-                          {child.riskLevel}
-                        </span>
-                      ) : ["منخفض جدا", "منخفض"].includes(child.riskLevel) ? (
-                        <span
-                          className="inline-flex items-center justify-center font-semibold text-sm leading-[20px] tracking-[0] text-[#065F46] font-['IBM_Plex_Sans_Arabic'] 
-      gap-[3px] opacity-100 rounded-full px-[24px] h-[20px] 
-      bg-[#D1FAE5] border border-[#A7F3D0]"
-                        >
-                          {child.riskLevel}
-                        </span>
-                      ) : ["مرتفع", "مرتفع جدا"].includes(child.riskLevel) ? (
-                        <span
-                          className="inline-flex items-center justify-center font-semibold text-xs leading-[20px] text-[#B42318] font-['IBM_Plex_Sans_Arabic'] 
-      gap-[3px] opacity-100 rounded-full px-[24px] h-[20px] 
-      bg-[#FFE4E6] border border-[#FECDD3]"
-                        >
-                          {child.riskLevel}
-                        </span>
-                      ) : (
-                        <span className="font-medium text-sm leading-[20px] tracking-[0] text-[#667085] font-['IBM_Plex_Sans_Arabic']">
-                          {child.riskLevel}
-                        </span>
-                      )}
-                    </td>
+                    <td className="text-right">{child.riskLevel}</td>
 
-                    <td className="p-4 text-right font-medium text-sm leading-[20px] tracking-[0] text-[#667085] font-['IBM_Plex_Sans_Arabic']">
+                    <td className="p-4 text-right font-medium text-sm text-[#667085]">
                       {child.gender}
                     </td>
-                    <td className="p-4 text-right font-medium text-sm leading-[20px] tracking-[0] text-[#667085] font-['IBM_Plex_Sans_Arabic']">
+                    <td className="p-4 text-right font-medium text-sm text-[#667085]">
                       {child.lastAnalysis}
                     </td>
-                    <td className="p-4 text-right font-medium text-sm leading-[20px] tracking-[0] font-['IBM_Plex_Sans_Arabic'] text-[#667085]">
+                    <td className="p-4 text-right font-medium text-sm text-[#667085]">
                       {child.drawings}
                     </td>
                     <td className=" text-right w-[40px] relative">
@@ -302,7 +239,7 @@ function FilterView({ viewMode }) {
                       </button>
 
                       {openMenuId === child.id && (
-                        <div className="absolute left-0 top-full mt-2 bg-white border border-gray-200 rounded-md shadow-md z-10 w-[100px] text-sm font-['IBM_Plex_Sans_Arabic']">
+                        <div className="absolute left-0 top-full mt-2 bg-white border border-gray-200 rounded-md shadow-md z-10 w-[100px] text-sm">
                           <button
                             onClick={() => handleEdit(child.id)}
                             className="block w-full px-3 py-2 text-right hover:bg-gray-50"

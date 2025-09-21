@@ -44,7 +44,12 @@ export default function ChildrenFilterBar({ viewMode, setViewMode, filters, setF
           >
             <option value="" disabled hidden>الحالة</option>
             <option value="قلق">قلق</option>
-            <option value="ضغط نفسي">ضغط نفسي</option>
+        <option value="ضغط نفسي">ضغط نفسي</option>
+        <option value="توتر">توتر</option>
+        <option value="أعراض القلق">أعراض قلق</option>
+        <option value="استقرار نفسي">استقرار نفسي</option>
+        <option value=" قلق مزمن">قلق مزمن</option>
+        <option value="اجهاد "> اجهاد</option>
           </select>
 
           <select
@@ -56,7 +61,7 @@ export default function ChildrenFilterBar({ viewMode, setViewMode, filters, setF
             <option value="منخفض">منخفض</option>
             <option value="متوسط">متوسط</option>
             <option value="مرتفع">مرتفع</option>
-            <option value="عالي جدا">عالي جدا</option>
+            <option value="مرتفع جدا">مرتفع جدا</option>
             <option value="منخفض جدا">منخفض جدا</option>
           </select>
 
