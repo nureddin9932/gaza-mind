@@ -13,6 +13,9 @@ import UploadingDraw from "./UploadingDraw/UploadingDraw";
 import Dashboard from "./Dashboard/Dashboard";
 import DrawingsRecords from "./ChildProfile/DrawingsRecords";
 import GridView from "./GridView/GridView";
+import FilterView from "./ChildrenManagement/FilterView";
+import Main from "./ChildrenManagement/Main";
+
 
 function App() {
   return (
@@ -32,7 +35,7 @@ function App() {
         <Route path="profile" element={<ChildProfile />} />
         <Route path="uploadingDraw" element={<UploadingDraw />} />
         <Route path="settings" element={<SettingsPage />} />
-        <Route path="gridview" element={<GridView />} />
+        <Route path="Main" element={<Main />} />
       </Route>
 
       {/* Redirect / to /dashboard */}
