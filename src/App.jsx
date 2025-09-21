@@ -11,6 +11,7 @@ import ChildProfile from "./ChildProfile/ChildProfile";
 import SettingsPage from "./SettingsPage/SettingsPage";
 import UploadingDraw from "./UploadingDraw/UploadingDraw";
 import Dashboard from "./Dashboard/Dashboard";
+import DrawingsRecords from "./ChildProfile/DrawingsRecords";
 
 function App() {
   return (
@@ -36,6 +37,8 @@ function App() {
       <Route path="/dashboard" element={<MainLayout />}>
         <Route index element={<Dashboard />} />
       </Route>
+
+      <Route path="/child-profile" element={<ChildProfile />}></Route>
     </Routes>
   );
 }

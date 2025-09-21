@@ -31,7 +31,7 @@ body {
 }
 
 body {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  font-family: "IBM Plex Sans Arabic", Tahoma, Geneva, Verdana, sans-serif;
   direction: rtl;
   text-align: right;
 }
@@ -58,4 +58,10 @@ body {
 /* Smooth transitions */
 * {
   transition: all 0.2s ease-in-out;
+}
+
+select option {
+  font-size: 13px;
+  font-weight: 500;
+  color: #98a2b3;
 }
