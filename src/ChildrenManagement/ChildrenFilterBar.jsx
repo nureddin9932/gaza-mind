@@ -8,7 +8,7 @@ export default function ChildrenFilterBar({ viewMode, setViewMode, filters, setF
   return (
     <div className="rounded-[16px] border border-[#F2F4F7] bg-[#F9FAFB] p-[24px] flex flex-col gap-[16px] text-right">
       <div className="flex justify-center">
-        <div className="w-[1028px] h-[40px] bg-white border border-[#20346014] rounded-[8px] px-4 py-[8px] shadow-[0px_1px_2px_0px_#2034601F] flex items-center gap-1">
+        <div className="w-full max-w-[1028px] h-[40px] bg-white border border-[#20346014] rounded-[8px] px-4 py-[8px] shadow-[0px_1px_2px_0px_#2034601F] flex items-center gap-1">
           <FiSearch className="text-[#98A2B3] w-[15px] h-[15px] opacity-100 ml-1" />
           <input
             type="text"
@@ -21,13 +21,13 @@ export default function ChildrenFilterBar({ viewMode, setViewMode, filters, setF
       </div>
 
       <div className="flex justify-center">
-        <p className="w-[1028px] h-[21px] text-right text-[#1D2939] font-bold text-base leading-[150%] font-['IBM_Plex_Sans_Arabic']">
+        <p className="w-full max-w-[1028px]  text-right text-[#1D2939] font-bold text-base leading-[150%] font-['IBM_Plex_Sans_Arabic']">
           تصفية حسب
         </p>
       </div>
 
       <div className="flex justify-center mt-1">
-        <div className="w-[1028px] grid grid-cols-[repeat(3,minmax(0,1fr))_auto] gap-4 items-center pb-4">
+        <div className="w-full max-w-[1028px] grid grid-cols-[repeat(3,minmax(0,1fr))_auto] gap-4 items-center pb-4">
           <input
             type="number"
             min="0"

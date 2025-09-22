@@ -1,3 +1,4 @@
+// src/components/Main.jsx
 import React, { useState } from "react";
 import ChildrenFilterBar from "./ChildrenFilterBar";
 import ChildManagementHeader from "./ChildrenManagement";
@@ -12,7 +13,6 @@ export default function Main() {
     riskLevel: "",
   });
 
-  // centralize children data here
   const childrenData = [
     {
       id: 1,
@@ -84,16 +84,26 @@ export default function Main() {
       lastAnalysis: "01-03-2025",
       drawings: 4,
     },
+    {
+      id: 7,
+      name: "سلوى",
+      age: 8,
+      mentalState: "قلق",
+      riskLevel: "مرتفع جدا",
+      gender: "أنثى",
+      lastAnalysis: "01-03-2025",
+      drawings: 4,
+    },
   ];
 
   return (
-    <div className="w-full min-h-full bg-white border border-[#E4E7EC] rounded-lg">
+    <div className="w-full min-h-full bg-white border border-[#E4E7EC] rounded-lg overflow-x-hidden">
       <div className="flex flex-col space-y-8 py-8 px-8">
         <div className="[&>*]:border-none [&>*]:rounded-lg">
           <ChildManagementHeader />
         </div>
 
-        <div className="w-[1076px] mx-auto flex flex-col gap-6 rounded-[16px] p-6">
+        <div className="w-full max-w-[1076px] mx-auto flex flex-col gap-6 rounded-[16px] p-6">
           <ChildrenFilterBar
             viewMode={viewMode}
             setViewMode={setViewMode}
@@ -109,5 +119,6 @@ export default function Main() {
         </div>
       </div>
     </div>
+  
   );
 }
